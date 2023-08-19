@@ -5,20 +5,34 @@
  * @head: pointer to the beginning of a listint_t list
  * @n: integer data
  *
- * Return: pointer to the new created nod .
+ * Return: pointer to the new created node.
  */
 
-listint_t *add_nodeint(listint_t **head, const int n)
+dlistint_t *add_dnodeint(dlistint_t **head, const int n)
 {
-	listint_t *nod;
+	dlistint_t *new;
+	dlistint_t *head;
 
-	if (head == NULL)
+	new = malloc(sizeof(dlistint_t));
+	if (new == NULL)
 		return (NULL);
-	nod = malloc(sizeof(listint_t));
-	if (nod == NULL)
-		return (NULL);
-	nod->n = n;
-	nod->next = *head;
-	*head = nod;
-	return (nod);
+
+	new->n = n;
+	new->prev = NULL;
+	h = *head;
+
+	if (head != NULL)
+	{
+		while (head->prev != NULL)
+			head = head->prev;
+	}
+
+	new->next = head;
+
+	if (h != NULL)
+		head->prev = new;
+
+	*head = new;
+
+	return (new);
 }
